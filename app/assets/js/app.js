@@ -435,19 +435,23 @@ scroll.addEventListener("click", (e) => {
   const t = e.target;
   if (!(t instanceof HTMLElement)) return;
 
+  const isCoarsePointer = window.matchMedia?.("(pointer: coarse)")?.matches;
+
   if (t.classList.contains("cmdlink")) {
+    e.preventDefault(); // avoid any default <a> behavior
     const c = t.getAttribute("data-cmd") || "";
     if (c) {
       pushHistory(c);
       histIndex = -1;
       currentDraft = "";
       runCommand(c);
-      cmd.focus();
+
+      if (!isCoarsePointer) cmd.focus();
     }
     return;
   }
 
-  cmd.focus();
+  if (!isCoarsePointer) cmd.focus();
 });
 
 cmd.addEventListener("input", updateGhost);
