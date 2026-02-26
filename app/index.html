@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>NKTKLN — terminal card</title>
+  <meta name="description" content="NKTKLN — ML / Python Engineer. Terminal-style personal card." />
+  <meta name="theme-color" content="#0b0f14" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="terminal scan" role="region" aria-label="terminal card">
+      <div class="topbar">
+        <div class="dots" aria-hidden="true">
+          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+        </div>
+        <div class="hint">Enter · Tab/→ autocomplete · ↑/↓ history · Ctrl+L clear</div>
+      </div>
+
+      <div class="screen" role="application" aria-label="terminal">
+        <!-- Output area -->
+        <div class="scroll out" id="scroll" aria-live="polite" aria-relevant="additions"></div>
+
+        <!-- Input row -->
+        <div class="inputrow" id="inputrow">
+          <span class="prompt" id="ps1">nktkln@system:~$</span>
+
+          <div class="inputwrap">
+            <!-- Ghost text shows suggested autocompletion -->
+            <div class="ghost" id="ghost" aria-hidden="true"></div>
+
+            <input
+              class="input"
+              id="cmd"
+              autocomplete="off"
+              spellcheck="false"
+              autocapitalize="off"
+              aria-label="Command input"
+              autofocus
+            />
+          </div>
+        </div>
+
+        <div class="footer">© <span id="year"></span> NKTKLN · made with ASCII &amp; love 🌸</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS: use modules for clean separation -->
+  <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

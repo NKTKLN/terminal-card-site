@@ -1,0 +1,205 @@
+/* -----------------------------------------------------------
+   Terminal Card Styles
+------------------------------------------------------------ */
+
+:root{
+  --bg:#0b0f14;
+  --fg:#d7dde6;
+  --muted:#8a93a3;
+  --accent:#ff6fb1;
+  --accent2:#8be9fd;
+  --line:rgba(255,111,177,.35);
+}
+
+*{ box-sizing:border-box; }
+html, body { height:100%; }
+
+body{
+  margin:0;
+  background:
+    radial-gradient(1200px 700px at 20% 10%, rgba(255,111,177,.10), transparent 55%),
+    radial-gradient(900px 600px at 80% 30%, rgba(139,233,253,.09), transparent 50%),
+    var(--bg);
+  color:var(--fg);
+  font-family:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  line-height:1.55;
+  display:flex;
+  min-height:100%;
+}
+
+.wrap{
+  width:100%;
+  max-width:1100px;
+  margin:0 auto;
+  padding:16px 14px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  flex:1;
+  min-height:0;
+}
+
+.terminal{
+  flex:1;
+  min-height:0;
+  border:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.45);
+  position:relative;
+  display:flex;
+  flex-direction:column;
+}
+
+.scan::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,.03),
+    rgba(255,255,255,.03) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  opacity:.25;
+  pointer-events:none;
+  mix-blend-mode:overlay;
+}
+
+.topbar{
+  padding:12px 14px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  background:rgba(0,0,0,.25);
+  z-index:1;
+}
+
+.dots{ display:flex; gap:7px; }
+.dot{ width:10px; height:10px; border-radius:50%; }
+.dot.r{ background:#ff5f57; }
+.dot.y{ background:#febc2e; }
+.dot.g{ background:#28c840; }
+
+.hint{
+  color:var(--muted);
+  font-size:13px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.screen{
+  z-index:1;
+  flex:1;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  background:rgba(0,0,0,.18);
+}
+
+.scroll{
+  flex:1;
+  min-height:0;
+  overflow:auto;
+  padding:14px;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(255,111,177,.35) rgba(255,255,255,.06);
+}
+
+.scroll::-webkit-scrollbar{ width:10px; }
+.scroll::-webkit-scrollbar-track{ background:rgba(255,255,255,.06); }
+.scroll::-webkit-scrollbar-thumb{
+  background:rgba(255,111,177,.30);
+  border-radius:10px;
+}
+
+.line{ margin:0 0 10px; }
+
+pre{
+  margin:0;
+  white-space:pre-wrap;
+  word-break:break-word;
+  font-size:14px;
+}
+
+.prompt{ color:var(--muted); }
+.cmd{ color:var(--fg); }
+
+.out a{
+  color:var(--accent);
+  text-decoration:underline;
+  text-underline-offset:2px;
+  word-break:break-word;
+}
+.out a:hover{ opacity:.92; }
+
+.cmdlink{
+  color:var(--accent2);
+  text-decoration:none;
+  border-bottom:1px dashed rgba(139,233,253,.55);
+  cursor:pointer;
+}
+.cmdlink:hover{ opacity:.9; }
+
+.pink{ color:var(--accent); }
+.cyan{ color:var(--accent2); }
+.muted{ color:var(--muted); }
+.dim{ opacity:.92; }
+
+.inputrow{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  padding:10px 12px;
+  border-top:1px solid rgba(255,255,255,.08);
+  background:rgba(0,0,0,.22);
+  position:relative;
+}
+
+.inputwrap{
+  position:relative;
+  flex:1;
+  min-width:0;
+}
+
+.ghost{
+  position:absolute;
+  left:0;
+  top:0;
+  pointer-events:none;
+  color:rgba(138,147,163,.55);
+  white-space:pre;
+  overflow:hidden;
+  text-overflow:clip;
+  font:inherit;
+  line-height:inherit;
+}
+
+.input{
+  position:relative;
+  width:100%;
+  background:transparent;
+  border:0;
+  outline:none;
+  color:var(--fg);
+  font:inherit;
+  padding:0;
+  margin:0;
+  min-width:0;
+  caret-color:rgba(255,255,255,.75);
+}
+
+.footer{
+  color:var(--muted);
+  font-size:13px;
+  padding:8px 12px;
+  border-top:1px solid rgba(255,255,255,.08);
+  background:rgba(0,0,0,.18);
+  z-index:1;
+  text-align:center;
+}

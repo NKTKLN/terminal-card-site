@@ -1,0 +1,9 @@
+services:
+  terminal-card:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: terminal-card
+    restart: unless-stopped
+    ports:
+      - "8080:80"
