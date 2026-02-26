@@ -95,7 +95,7 @@ export function motdHtml() {
 <span class="cyan">role</span>: <span class="muted">ML / Python Engineer</span>
 <span class="cyan">focus</span>: <span class="muted">Machine Learning, Deep Learning, Infrastructure &amp; Systems</span>
 
-<span class="muted">hint:</span> type <a class="cmdlink" data-cmd="help">help</a> · <a class="cmdlink" data-cmd="ls">ls</a> · <a class="cmdlink" data-cmd="projects">projects</a>
+<span class="muted">hint:</span> type or tap <a class="cmdlink" data-cmd="help">help</a> · <a class="cmdlink" data-cmd="ls">ls</a> · <a class="cmdlink" data-cmd="projects">projects</a>
 </pre>
 </div>
   `.trim();
