@@ -230,52 +230,41 @@ function findPrefixMatch(prefix, candidates) {
  */
 function computeCompletion(input) {
   const st = getCompletionState(input);
-  const trimmedLeft = st.s.replace(/^\s+/, ""); // we don't support leading spaces much, but ok
 
-  // If user is still typing the command (cursor is in first token region)
-  // - i.e., there is no whitespace yet before caret OR caret is within first token.
+  const leading = st.s.match(/^\s*/)?.[0] ?? "";
+  const trimmedLeft = st.s.slice(leading.length);
+
   const hasSpace = /\s/.test(trimmedLeft);
-  const cmdToken = st.firstToken;
-  const cmdNormalized = (ALIASES[cmdToken.toLowerCase()] || cmdToken.toLowerCase());
-
-  const isTypingCommand = !hasSpace && st.tokenStart <= cmdToken.length;
+  const parts = trimmedLeft.split(/\s+/);
+  const headRaw = (parts[0] || "");
+  const head = headRaw.toLowerCase();
+  const cmdName = ALIASES[head] || head;
+  const isTypingCommand = !hasSpace;
 
   if (isTypingCommand) {
-    if (!cmdToken.trim()) return null;
-    const match = findPrefixMatch(cmdToken, COMMANDS);
+    if (!headRaw.trim()) return null;
+    const match = findPrefixMatch(headRaw, COMMANDS);
     if (!match) return null;
     return {
-      full: match,
-      insertFrom: 0, // replace command token from start
+      full: leading + match,
+      insertFrom: leading.length,
     };
   }
 
-  // Otherwise, we are completing an argument (current token after first space)
-  // Determine the command (first token)
-  const parts = trimmedLeft.split(/\s+/);
-  const head = (parts[0] || "").toLowerCase();
-  const cmdName = ALIASES[head] || head;
-
   // For bash-like behavior: if user typed "cat " and token is empty -> suggest first file
   const current = st.token; // the token at the caret (we only use caret at end)
-  const tokenIsArg = true;
-
-  if (!tokenIsArg) return null;
 
   if (cmdName === "cat") {
     const files = vfsList(cwd);
     const match = findPrefixMatch(current, files);
     if (!match) return null;
-
-    // Replace only current token (from tokenStart to end) with matched filename
     return { full: st.s.slice(0, st.tokenStart) + match, insertFrom: st.tokenStart };
   }
 
   if (cmdName === "open") {
-    const targets = Object.keys(LINKS); // github/telegram/email
+    const targets = Object.keys(LINKS);
     const match = findPrefixMatch(current, targets);
     if (!match) return null;
-
     return { full: st.s.slice(0, st.tokenStart) + match, insertFrom: st.tokenStart };
   }
 
@@ -292,7 +281,11 @@ function updateGhost() {
     return;
   }
 
-  ghost.textContent = completion.full;
+  if (completion.full.toLowerCase().startsWith(typed.toLowerCase())) {
+    ghost.textContent = typed + completion.full.slice(typed.length);
+  } else {
+    ghost.textContent = completion.full;
+  }
 }
 
 /** Accept completion into input. Returns true if accepted. */
