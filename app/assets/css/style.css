@@ -9,22 +9,32 @@
   --accent:#ff6fb1;
   --accent2:#8be9fd;
   --line:rgba(255,111,177,.35);
+  --term-fs:14px;
+  --term-lh:1.55;
 }
 
 *{ box-sizing:border-box; }
-html, body { height:100%; }
+
+html, body{
+  height:100%;
+  overflow-x:hidden;
+}
 
 body{
   margin:0;
   background:
     radial-gradient(1200px 700px at 20% 10%, rgba(255,111,177,.10), transparent 55%),
     radial-gradient(900px 600px at 80% 30%, rgba(139,233,253,.09), transparent 50%),
+    radial-gradient(900px 600px at 50% 110%, rgba(255,111,177,.08), transparent 55%),
     var(--bg);
   color:var(--fg);
   font-family:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  line-height:1.55;
+  line-height:var(--term-lh);
   display:flex;
-  min-height:100%;
+  min-height:100vh;
+  min-height:100dvh;
+  overflow:hidden;
+  overscroll-behavior:none;
 }
 
 .wrap{
@@ -50,6 +60,7 @@ body{
   position:relative;
   display:flex;
   flex-direction:column;
+  max-width:100%;
 }
 
 .scan::before{
@@ -100,12 +111,16 @@ body{
   display:flex;
   flex-direction:column;
   background:rgba(0,0,0,.18);
+
+  font-size:var(--term-fs);
+  line-height:var(--term-lh);
 }
 
 .scroll{
   flex:1;
   min-height:0;
   overflow:auto;
+  overflow-x:hidden;
   padding:14px;
   scrollbar-width:thin;
   scrollbar-color:rgba(255,111,177,.35) rgba(255,255,255,.06);
@@ -124,11 +139,23 @@ pre{
   margin:0;
   white-space:pre-wrap;
   word-break:break-word;
-  font-size:14px;
+  overflow-wrap:anywhere;
+  font-size:inherit;
+  line-height:inherit;
 }
 
-.prompt{ color:var(--muted); }
-.cmd{ color:var(--fg); }
+.prompt{
+  color:var(--muted);
+  font-size:inherit;
+  line-height:inherit;
+  font-weight:400;
+}
+
+.cmd{
+  color:var(--fg);
+  font-size:inherit;
+  line-height:inherit;
+}
 
 .out a{
   color:var(--accent);
@@ -159,6 +186,9 @@ pre{
   border-top:1px solid rgba(255,255,255,.08);
   background:rgba(0,0,0,.22);
   position:relative;
+
+  font-size:inherit;
+  line-height:inherit;
 }
 
 .inputwrap{
@@ -178,6 +208,8 @@ pre{
   text-overflow:clip;
   font:inherit;
   line-height:inherit;
+  width:100%;
+  max-width:100%;
 }
 
 .input{
