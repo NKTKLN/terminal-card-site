@@ -355,12 +355,17 @@ function cmdCat(args) {
  * - url (https://..., mailto:...)
  */
 function cmdOpen(args) {
-  const target = (args[0] || "").trim();
-  if (!target) {
+  if (!args.length) {
     addOutput("usage: open <github|telegram|email|url>\nexample: open github");
     return;
   }
 
+  if (args.length > 1) {
+    addOutput(`open: too many arguments\nusage: open <github|telegram|email|url>\nexample: open github`);
+    return;
+  }
+
+  const target = String(args[0] || "").trim();
   const key = target.toLowerCase();
   const url = LINKS[key] || target;
 
