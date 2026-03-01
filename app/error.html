@@ -36,7 +36,7 @@
 
           <div class="line">
             <pre>
-<span class="pink">error:</span> <span id="code">???</span> <span id="msg" class="muted">error</span>
+<span class="pink">error:</span> requested page is not available
 <span class="muted">hint:</span> check the URL or go back home
             </pre>
           </div>
@@ -55,6 +55,8 @@
     </div>
   </div>
 
-  <script defer src="/assets/js/error.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
